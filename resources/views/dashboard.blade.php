@@ -16,129 +16,168 @@
     </div>
     @role('admin')
     @php
-    $userCount = \App\Models\User::count();
-    $activeUserCount = \App\Models\User::where('deleted_at')->count();
-    $categoryCount = \App\Models\Category::count();
-    $eventCount = \App\Models\Evenement::count();
-    $reservationCount = \App\Models\Reservation::count();
-    $reservationcout = \App\Models\Reservation::where('deleted_at')->count();
-    $unvalidatedEventCount = \App\Models\Evenement::where('validation', false)->count();
-    $validatedEventCount = \App\Models\Evenement::where('validation', true)->count();
+        $userCount = \App\Models\User::count();
+        $activeUserCount = \App\Models\User::whereNull('deleted_at')->count();
+        $categoryCount = \App\Models\Category::count();
+        $eventCount = \App\Models\Evenement::count();
+        $reservationCount = \App\Models\Reservation::count();
+        $reservationCountDeleted = \App\Models\Reservation::whereNotNull('deleted_at')->count();
+        $unvalidatedEventCount = \App\Models\Evenement::where('validation', false)->count();
+        $validatedEventCount = \App\Models\Evenement::where('validation', true)->count();
     @endphp
 
-   
-<div class=" h-screen w-screen">
-    <div class="grid gap-4 lg:gap-8 md:grid-cols-3 p-8 pt-20">
-        <div class="relative p-6 rounded-2xl bg-white shadow ">
-            <div class="space-y-2">
-                <div
-                    class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 ">
-                    <span>Number of Users</span>
-                </div>
-                <div class="text-3xl">
-                    {{ $userCount }}
-                </div>
-                <svg width="256px" height="256px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg" transform="matrix(-1, 0, 0, 1, 0, 0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="3.12"> <path d="M5 21C5 17.134 8.13401 14 12 14C15.866 14 19 17.134 19 21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="#000000" stroke-width="1.416" stroke-linecap="round" stroke-linejoin="round">
-                    </path> 
-                </g>
-                <g id="SVGRepo_iconCarrier"> <path d="M5 21C5 17.134 8.13401 14 12 14C15.866 14 19 17.134 19 21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="#000000" stroke-width="1.416" stroke-linecap="round" stroke-linejoin="round">
-                    </path>
-                 </g>
-                </svg>
-              
+    <div class="mx-auto max-w-screen-lg">
+        <h3 class="text-lg leading-6 font-medium text-gray-900 ">Last 30 days</h3>
+
+        <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3    ">
+            <a href="{{ route('admin.index') }}" class="relative bg-white pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
+                <dt>
+                    <div class="absolute bg-indigo-500 rounded-md p-3">
+                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                    </div>
+                    <p class="ml-16 text-sm font-medium text-gray-500 truncate">Total Users</p>
+                </dt>
+                <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
+                    <p class="text-2xl font-semibold text-gray-900">{{ $userCount }}</p>
+                    <p class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
+                        <svg class="self-center flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="sr-only"> Increased by </span>
+                        122
+                    </p>
+                </dd>
+            </a>
+
+            <div class="relative bg-white pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
+                <dt>
+                    <div class="absolute bg-indigo-500 rounded-md p-3">
+                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 19v-8.93a2 2 0 01.89-1.664l7-4.666a2 2 0 012.22 0l7 4.666A2 2 0 0121 10.07V19M3 19a2 2 0 002 2h14a2 2 0 002-2M3 19l6.75-4.5M21 19l-6.75-4.5M3 10l6.75 4.5M21 10l-6.75 4.5m0 0l-1.14.76a2 2 0 01-2.22 0l-1.14-.76" />
+                        </svg>
+                    </div>
+                    <p class="ml-16 text-sm font-medium text-gray-500 truncate">Total Events</p>
+                </dt>
+                <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
+                    <p class="text-2xl font-semibold text-gray-900">{{ $eventCount }}</p>
+                    <p class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
+                        <svg class="self-center flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="sr-only"> Increased by </span>
+                        5.4%
+                    </p>
+                </dd>
             </div>
-        </div>
-        <div class="relative p-6 rounded-2xl bg-white shadow ">
-            <div class="space-y-2">
-                <div
-                    class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 ">
-                    <span>Users qui sans suprimer</span>
-                </div>
-                <div class="text-3xl">
-                    {{ $activeUserCount }}
-                </div>
-                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                    <path fill-rule="evenodd" d="M20 10H4v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8ZM9 13v-1h6v1c0 .6-.4 1-1 1h-4a1 1 0 0 1-1-1Z" clip-rule="evenodd"/>
-                    <path d="M2 6c0-1.1.9-2 2-2h16a2 2 0 1 1 0 4H4a2 2 0 0 1-2-2Z"/>
-                  </svg>
-                  
+
+            <div class="relative bg-white pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
+                <dt>
+                    <div class="absolute bg-indigo-500 rounded-md p-3">
+                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+                        </svg>
+                    </div>
+                    <p class="ml-16 text-sm font-medium text-gray-500 truncate">Total Reservations</p>
+                </dt>
+                <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
+                    <p class="text-2xl font-semibold text-gray-900">{{ $reservationCount }}</p>
+
+                    <p class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
+                        <svg class="self-center flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="sr-only"> Increased by </span>
+                        20
+                    </p>
+                </dd>
             </div>
-        </div>
-        <div class="relative p-6 rounded-2xl bg-white shadow ">
-            <div class="space-y-2">
-                <div
-                    class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 ">
-                    <span>Number category</span>
-                </div>
-                <div class="text-3xl">
-                    {{ $categoryCount }}
-                </div>
+
+            <div class="relative bg-white pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
+                <dt>
+                    <div class="absolute bg-indigo-500 rounded-md p-3">
+                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+                        </svg>
+                    </div>
+                    <p class="ml-16 text-sm font-medium text-gray-500 truncate">Total Reservations Deleted</p>
+                </dt>
+                <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
+                    <p class="text-2xl font-semibold text-gray-900">{{ $reservationCountDeleted }}</p>
+                    
+                    <p class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
+                        <svg class="self-center flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="sr-only"> Increased by </span>
+                        20
+                    </p>
+                </dd>
             </div>
-        </div>
-        <div class="relative p-6 rounded-2xl bg-white shadow ">
-            <div class="space-y-2">
-                <div
-                    class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 ">
-                    <span>event exist</span>
-                </div>
-                <div class="text-3xl">
-                    {{ $eventCount }}
-                </div>
+            <div class="relative bg-white pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
+                <dt>
+                    <div class="absolute bg-indigo-500 rounded-md p-3">
+                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+                        </svg>
+                    </div>
+                    <p class="ml-16 text-sm font-medium text-gray-500 truncate">Total Category</p>
+                </dt>
+                <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
+                    <p class="text-2xl font-semibold text-gray-900">{{ $categoryCount }}</p>
+                    
+                    <p class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
+                        <svg class="self-center flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="sr-only"> Increased by </span>
+                        20
+                    </p>
+                </dd>
+            </div>     <div class="relative bg-white pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
+                <dt>
+                    <div class="absolute bg-indigo-500 rounded-md p-3">
+                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+                        </svg>
+                    </div>
+                    <p class="ml-16 text-sm font-medium text-gray-500 truncate">Total Unvalid event</p>
+                </dt>
+                <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
+                    <p class="text-2xl font-semibold text-gray-900">{{ $unvalidatedEventCount }}</p>
+                    
+                    <p class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
+                        <svg class="self-center flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="sr-only"> Increased by </span>
+                        20
+                    </p>
+                </dd>
+            </div>     <div class="relative bg-white pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
+                <dt>
+                    <div class="absolute bg-indigo-500 rounded-md p-3">
+                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+                        </svg>
+                    </div>
+                    <p class="ml-16 text-sm font-medium text-gray-500 truncate">Total event valider</p>
+                </dt>
+                <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
+                    <p class="text-2xl font-semibold text-gray-900">{{ $validatedEventCount }}</p>
+                    
+                    <p class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
+                        <svg class="self-center flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="sr-only"> Increased by </span>
+                        20
+                    </p>
+                </dd>
             </div>
-        </div>
-        <div class="relative p-6 rounded-2xl bg-white shadow ">
-            <div class="space-y-2">
-                <div
-                    class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 ">
-                    <span>event invalid</span>
-                </div>
-                <div class="text-3xl">
-                    {{ $unvalidatedEventCount }}
-                    <svg class="w-10 h-10 text-gray-800 dark:text-black" style="display: inline; float:right" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                        <path fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm11-4a1 1 0 1 0-2 0v5a1 1 0 1 0 2 0V8Zm-1 7a1 1 0 1 0 0 2 1 1 0 1 0 0-2Z" clip-rule="evenodd"/>
-                      </svg>
-                </div>
-            </div>
-        </div>
-        <div class="relative p-6 rounded-2xl bg-white shadow ">
-            <div class="space-y-2">
-                <div
-                    class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 ">
-                    <span>event valider</span>
-                </div>
-                <div class="text-3xl">
-                    {{ $validatedEventCount }}
-                    <svg class="w-10 h-10 text-green-500 dark:text-black float-right" viewBox="0 0 20 20">
-                        <path d="M10.219,1.688c-4.471,0-8.094,3.623-8.094,8.094s3.623,8.094,8.094,8.094s8.094-3.623,8.094-8.094S14.689,1.688,10.219,1.688 M10.219,17.022c-3.994,0-7.242-3.247-7.242-7.241c0-3.994,3.248-7.242,7.242-7.242c3.994,0,7.241,3.248,7.241,7.242C17.46,13.775,14.213,17.022,10.219,17.022 M15.099,7.03c-0.167-0.167-0.438-0.167-0.604,0.002L9.062,12.48l-2.269-2.277c-0.166-0.167-0.437-0.167-0.603,0c-0.166,0.166-0.168,0.437-0.002,0.603l2.573,2.578c0.079,0.08,0.188,0.125,0.3,0.125s0.222-0.045,0.303-0.125l5.736-5.751C15.268,7.466,15.265,7.196,15.099,7.03"></path>
-                    </svg>
-                </div>
-                
-            </div>
-        </div>
-        <div class="relative p-6 rounded-2xl bg-white shadow ">
-            <div class="space-y-2">
-                <div
-                    class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 ">
-                    <span>Reservation</span>
-                </div>
-                <div class="text-3xl">
-                    {{ $reservationCount }}
-                </div>
-            </div>
-        </div>
-        <div class="relative p-6 rounded-2xl bg-white shadow ">
-            <div class="space-y-2">
-                <div
-                    class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 ">
-                    <span>cancled Reservation</span>
-                </div>
-                <div class="text-3xl">
-                    {{ $reservationcout }}
-                </div>
-            </div>
-        </div>
+        </dl>
     </div>
-</div>
-    @endrole
+@endrole
 
 </x-app-layout>

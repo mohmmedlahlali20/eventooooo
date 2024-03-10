@@ -15,7 +15,7 @@
     </head>
     <body class="">
         @if (Route::has('login'))
-        <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
+        <div class="sm:fixed sm:top-0 sm:left-0 p-6 text-left z-10">
             @auth
                 <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
             @else
@@ -27,6 +27,7 @@
             @endauth
         </div>
     @endif
+    
     <section class="relative h-screen flex flex-col items-center justify-center text-center text-white ">
       <div class="video-docker absolute top-0 left-0 w-full h-full overflow-hidden">
           <video class="min-w-full min-h-full absolute object-cover"

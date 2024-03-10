@@ -68,6 +68,18 @@
                 }
             }, 5000);
           
+
+    const dropdownButton = document.getElementById('dropdownButton');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+
+    dropdownButton.addEventListener('click', () => {
+        dropdownMenu.classList.toggle('hidden');
+    });
+
+    function closeDropdown() {
+        dropdownMenu.classList.add('hidden');
+    }
+
         </script>
     </body>
 </html>
