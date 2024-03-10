@@ -17,10 +17,13 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $user ;
-        //dd(Auth::user()->id);
-
-        $reservations = Reservation::where('id_user', Auth::user()->id);
+        if (auth()->user()->hasRole('admin')) {
+           
+            $reservations = Reservation::all();
+        } else {
+            
+            $reservations = Reservation::where('id_user', auth()->user()->id)->get();
+        }
         
         return view('reservation.index', compact('reservations'));
 
@@ -110,7 +113,7 @@ class ReservationController extends Controller
     {
         $reservation->delete();
         //dd($reservation->delete());
-        return back()->with('success', 'reservation cancled');
+        return  redirect()->back()->with('success', 'reservation cancled');
     }
 
 }

@@ -137,13 +137,16 @@
 </nav> --}}
 
 <div class="min-h-full">
-    <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+    <nav x-data="{ open: false }" class="bg-gray-200 border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        <a href="{{ route('dashboard') }}">
-                            <x-application-logo class="h-8 w-8" />
+                        <a href="{{ route('dashboard') }}"  class="block focus:outline-none">
+                            <div class="flex-shrink-0">
+                                <img class="h-10 w-10 rounded-full" src="https://unsplash.com/photos/white-concrete-building-during-night--N7Jk0SI2kA.svg" alt="">
+                            </div>
+                            
                         </a>
                     </div>
                     <div class="hidden md:block">
@@ -180,30 +183,33 @@
                     </div>
                 </div>
                 <div class="hidden md:block">
-                    <div class="ml-4 flex items-center md:ml-6">
+                    <div class="hidden sm:flex sm:items-center sm:ms-6">
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
-                                <button class="max-w-xs bg-indigo-600 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white">
+                                <button class="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500">
                                     <div>{{ Auth::user()->name }}</div>
-                                    <div class="ml-1">
-                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd"
-                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                clip-rule="evenodd" />
+          
+                                    <div class="ms-1">
+                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                                         </svg>
                                     </div>
                                 </button>
                             </x-slot>
+          
                             <x-slot name="content">
                                 <x-dropdown-link :href="route('profile.edit')">
-                                    {{ __('Profile') }}
+                                    {{ ('Profile') }}
                                 </x-dropdown-link>
+          
+                                <!-- Authentication -->
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
+          
                                     <x-dropdown-link :href="route('logout')"
-                                        onclick="event.preventDefault(); this.closest('form').submit();">
-                                        {{ __('Log Out') }}
+                                            onclick="event.preventDefault();
+                                                        this.closest('form').submit();">
+                                        {{ ('Log Out') }}
                                     </x-dropdown-link>
                                 </form>
                             </x-slot>

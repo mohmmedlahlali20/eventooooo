@@ -31,7 +31,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('/event', EvenementController::class);
     Route::get('/evento',[AdminController::class , 'evento'])->name('evento');
     Route::put('/update-validation/{id}', [AdminController::class ,'updateValidation'])->name('updateValidation');
-    Route::put('/update-status/{id}', [AdminController::class, 'updateStatus'])->name('updateStatus');
+    Route::put('/update-status/{reservation}', [AdminController::class, 'updateStatus'])->name('updateStatus');
+
 });
 
 Route::middleware(['auth', 'role:Organisateur'])->group(function () {

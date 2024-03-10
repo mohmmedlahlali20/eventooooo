@@ -51,7 +51,7 @@ class EvenementController extends Controller
             if ($request->hasFile('image')) {
                 $validatedData['image'] = $request->file('image')->store('event', 'public');
             }
-        
+        //dd($validatedData['image']);
             $event = Evenement::create($validatedData);
             
        //dd($event);
@@ -86,13 +86,15 @@ class EvenementController extends Controller
     {
         $userId = Auth::id();
             $validatedData = $request->validated();
-            $Event->fill( $validatedData )->save();
+            
 
             if($request->hasFile('image')){
-                $validated['image']=$request->file('image')->store('EventsImg','public');
+                $validated['image']=$request->file('image')->store('event','public');
             } else{
                 $validated['image']=$request->input('image');
             }
+
+            $Event->fill( $validatedData )->save();
             return redirect()->route('Event.index')->with('success', 'Event updated successfully.');
     }
 
@@ -116,6 +118,9 @@ class EvenementController extends Controller
         } else {
             return redirect()->back()->with('error', 'Search parameter missing');
         }
+
+
+        
     }
 
 
@@ -123,17 +128,17 @@ class EvenementController extends Controller
     {
         $selectedCategory = $request->category;
         $Categories = Category::all();
+
+        $query = Evenement::with('category');
+    
         if ($selectedCategory) {
-            $filteredData = Evenement::where('category_id', $selectedCategory)->get();
-        } else {
-            $filteredData = Evenement::all();
+            $query->where('category_id', $selectedCategory);
         }
+
+        $filteredData = $query->get();
     
         return view('Users.filtrage', compact('filteredData', 'Categories'));
     }
 
 
-    public function QrCode(){
-        
-    }
 }

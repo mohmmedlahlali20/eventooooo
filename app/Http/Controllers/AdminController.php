@@ -61,10 +61,10 @@ class AdminController extends Controller
 
 }
 
-public function updateStatus(Request $request, $id)
+public function updateStatus(Request $request,  Reservation $reservation)
 {
     $reservation = Reservation::find($id);
-
+//dd($reservation);
     if ($reservation) {
         $newStatus = $reservation->status === 'valid' ? 'invalid' : 'valid';
         $reservation->update(['status' => $newStatus]);
@@ -74,6 +74,7 @@ public function updateStatus(Request $request, $id)
 
     abort(404, 'Reservation not found');
 }
+
 
     /**
      * Display the specified resource.

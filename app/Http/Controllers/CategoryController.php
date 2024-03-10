@@ -66,14 +66,6 @@ class CategoryController extends Controller
         return redirect()->back()->with('success','Category deleted successfully');
     }
 
-    public function filter(Request $request)
-    {
-       
-    //     $categories = Category::all();
-    
-    //  //dd( $categories );
-    
-    //     return view('Users.index', compact('categories'));
-    }
+
     
 }

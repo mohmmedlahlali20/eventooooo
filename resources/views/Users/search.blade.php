@@ -1,4 +1,4 @@
-
+<x-User-layout>
 <form action="{{ url('/search') }}" class="max-w-md mx-auto mt-5 mb-5">
     <div class="flex-1 px-2 flex justify-center lg:ml-6 lg:justify-end">
         <div class="max-w-lg w-full lg:max-w-xs">
@@ -23,9 +23,9 @@
     @else
         <div class="container mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                @if( $event->validation === 'valid')
                 @foreach ($Evenet as $event)
-                    @if( $event->validation === 'valid')
-                      
+                   
             <div class="rounded overflow-hidden shadow-lg flex flex-col">
                 <a href="#">{{ $event->created_at }}</a>
                 <div class="relative"><a href="#">
@@ -78,14 +78,14 @@
                                 <button type="submit" class="focus:outline-none text-white bg-red-400 hover:bg-red-500 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-red-900">Cancel Event</button>
                             </form>
                             <a href="{{ route('Event.edit', ['Event' => $event->id]) }}">modifier</a>
-
                             @endrole
                         </span>
                     </span>
                 </div>
             </div>
-                    @endif
+                   
                 @endforeach
+                @endif
             </div>
         </div>
     @endif

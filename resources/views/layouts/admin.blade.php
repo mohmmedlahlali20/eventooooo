@@ -27,28 +27,48 @@
             </header>
         @endif
         <div class="max-w-md mx-auto mt-5">
+         
             @if (session('success'))
-            <div id="successMessage" class="bg-green-50 border-l-4 border-green-400 p-4">
-                <div class="flex">
-                    <div class="flex-shrink-0">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                            <path fill-rule="evenodd" d="M10 2a1 1 0 012 0v9a1 1 0 11-2 0V2zm1 12a1 1 0 11-2 0 1 1 0 012 0zm1.293-9.293a1 1 0 00-1.414 0L11 5.586V9a1 1 0 11-2 0V5.586L7.707 4.293a1 1 0 00-1.414 1.414L8.586 9l-2.293 2.293a1 1 0 101.414 1.414L10 10.414V14a1 1 0 102 0V10.414l2.293 2.293a1 1 0 001.414-1.414L13.414 9l2.293-2.293a1 1 0 000-1.414z" clip-rule="evenodd" />
-                        </svg>
-                        
+       
+                <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-4xl mx-auto">
+                        <div class="rounded-md bg-green-50 p-4">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-5 w-5 text-green-400" x-description="Heroicon name: solid/check-circle"
+                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                        aria-hidden="true">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="text-sm font-medium text-green-800">
+                                        nice nice
+                                    </h3>
+                                    <div class="mt-2 text-sm text-green-700">
+                                        <p>
+                                            {{ session('success') }}
+                                        </p>
+                                    </div>
+                                    <div class="mt-4">
+                                        <div class="-mx-2 -my-1.5 flex">
+                                            <button type="button"
+                                                class="bg-green-50 px-2 py-1.5 rounded-md text-sm font-medium text-green-800 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-green-50 focus:ring-green-600">
+                                                View status
+                                            </button>
+                                            <button type="button"
+                                                class="ml-3 bg-green-50 px-2 py-1.5 rounded-md text-sm font-medium text-green-800 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-green-50 focus:ring-green-600">
+                                                Dismiss
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="ml-3">
-                        <p class="text-sm text-green-700">
-                            {{ session('success') }}
-                            @if(session('successLink'))
-                                <a href="{{ session('successLink') }}" class="font-medium underline text-green-700 hover:text-green-600">
-                                    {{ __('Click here') }}
-                                </a>
-                            @endif
-                        </p>
-                    </div>
-                </div>
-            </div>
-            
+                </div>  
     @endif
   
       
